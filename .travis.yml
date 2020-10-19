@@ -1,0 +1,16 @@
+language: python
+python:
+  - "3.7"
+
+git:
+  depth: 1
+
+branches:
+  only:
+    - main
+
+install:
+  - pip install conan
+
+script:
+  - conan create . tanshihaj/main
