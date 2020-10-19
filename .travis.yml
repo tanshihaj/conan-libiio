@@ -14,3 +14,9 @@ install:
 
 script:
   - conan create . tanshihaj/main
+
+deploy:
+  provider: script
+  script: bash tools/deploy_bintray.sh
+  on:
+    branch: main
