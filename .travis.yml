@@ -1,6 +1,5 @@
 language: python
-python:
-  - "3.7"
+python: "3.7"
 
 git:
   depth: 1
@@ -9,11 +8,33 @@ branches:
   only:
     - main
 
+os:
+  - linux
+
+env:
+  - SHARED_LIB=True
+  - SHARED_LIB=False
+
+matrix:
+  include:
+    - os: osx
+      language: shell
+      env: SHARED_LIB=True
+    - os: osx
+      language: shell
+      env: SHARED_LIB=False
+    - os: windows
+      language: shell
+      before_install:
+        - choco install python --version 3.7
+        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+      env: SHARED_LIB=True
+
 install:
-  - pip install conan
+  - pip3 install conan
 
 script:
-  - conan create . tanshihaj/main
+  - conan create . tanshihaj/stable -o *:shared=$SHARED_LIB --build missing
 
 deploy:
   provider: script

@@ -256,5 +256,7 @@ class LibiioConan(ConanFile):
                 self.cpp_info.includedirs = ["Frameworks/iio.framework/Headers"]
             else:
                 self.cpp_info.libs = ["iio"]
-        else:
+        elif self.settings.os == "Linux":
             self.cpp_info.libs = ["iio"]
+        else:
+            self.cpp_info.libs = ["libiio"]
