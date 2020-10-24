@@ -210,7 +210,7 @@ class LibiioConan(ConanFile):
             )
 
     def configure_cmake(self):
-        cmake = CMake(self)
+        cmake = CMake(self, cmake_program=os.path.join(self.deps_cpp_info["cmake"].bin_paths[0], "cmake"))
 
         cmake.definitions["OSX_PACKAGE"] = "OFF"
         cmake.definitions["ENABLE_PACKAGING"] = "OFF"
