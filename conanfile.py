@@ -140,6 +140,13 @@ class LibiioConan(ConanFile):
                 ""
             )
 
+        if not self.options.shared and self.settings.compiler == "Visual Studio":
+            tools.replace_in_file(
+                "iio.h",
+                "#   ifdef LIBIIO_EXPORTS",
+                "#   ifdef LIBIIO_STATIC\n#   define __api\n#   elif LIBIIO_EXPORTS"
+            )
+
         if any('libxml2' in r for r in self.requires):
             tools.replace_in_file(
                 "CMakeLists.txt",
@@ -258,5 +265,10 @@ class LibiioConan(ConanFile):
                 self.cpp_info.libs = ["iio"]
         elif self.settings.os == "Linux":
             self.cpp_info.libs = ["iio"]
-        else:
-            self.cpp_info.libs = ["libiio"]
+        elif self.settings.os == "Windows":
+            if self.settings.compiler == "Visual Studio":
+                if not self.options.shared:
+                    self.cpp_info.defines = ["LIBIIO_STATIC=1"]
+                self.cpp_info.libs = ["libiio"]
+            else:
+                self.cpp_info.libs = ["iio"]
