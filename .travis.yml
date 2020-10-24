@@ -1,35 +1,35 @@
-language: python
-python: "3.7"
-
 git:
   depth: 1
 
-os:
-  - linux
+linux: &linux
+  os: linux
+  language: python
+  python: "3.7"
 
-env:
-  - SHARED_LIB=True
-  - SHARED_LIB=False
+osx: &osx
+  os: osx
+  language: shell
+
+windows: &windows
+  os: windows
+  language: shell
+  before_install:
+    - choco install python --version 3.7
+    - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
 
 matrix:
   include:
-    - os: osx
-      language: shell
+    - <<: *linux
       env: SHARED_LIB=True
-    - os: osx
-      language: shell
+    - <<: *linux
       env: SHARED_LIB=False
-    - os: windows
-      language: shell
-      before_install:
-        - choco install python --version 3.7
-        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+    - <<: *osx
       env: SHARED_LIB=True
-    - os: windows
-      language: shell
-      before_install:
-        - choco install python --version 3.7
-        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+    - <<: *osx
+      env: SHARED_LIB=False
+    - <<: *windows
+      env: SHARED_LIB=True
+    - <<: *windows
       env: SHARED_LIB=False
 
 install:

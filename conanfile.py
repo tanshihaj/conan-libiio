@@ -5,7 +5,6 @@ import os
 
 class LibiioConan(ConanFile):
     name = "libiio"
-    version = "0.16"
     license = "https://github.com/analogdevicesinc/libiio/blob/master/COPYING.txt"
     url = "http://analogdevicesinc.github.io/libiio"
     description = "A cross platform library for interfacing with local and remote Linux IIO devices"
