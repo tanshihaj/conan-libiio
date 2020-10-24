@@ -1,3 +1,5 @@
+[![Build Status Travis](https://travis-ci.com/tanshihaj/conan-libiio.svg?branch=main)](https://travis-ci.com/tanshihaj/conan-libiio)
+
 ## Conan package recipe for [libiio](http://analogdevicesinc.github.io/libiio)
 
 ## How use recipe
