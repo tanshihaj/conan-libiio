@@ -36,7 +36,7 @@ install:
   - pip3 install conan
 
 script:
-  - conan create . 0.16@tanshihaj/stable -o *:shared=$SHARED_LIB --build missing
+  - conan create . tanshihaj/stable -o *:shared=$SHARED_LIB --build missing
 
 deploy:
   provider: script
