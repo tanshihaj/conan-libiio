@@ -20,23 +20,30 @@ windows: &windows
 matrix:
   include:
     - <<: *linux
-      env: SHARED_LIB=True
+      env: SHARED_LIB=True LOCAL_BACKEND=True
     - <<: *linux
-      env: SHARED_LIB=False
+      env: SHARED_LIB=False LOCAL_BACKEND=True
+
     - <<: *osx
-      env: SHARED_LIB=True
+      env: SHARED_LIB=True LOCAL_BACKEND=False
     - <<: *osx
-      env: SHARED_LIB=False
+      env: SHARED_LIB=False LOCAL_BACKEND=False
+
+    - <<: *osx
+      env: SHARED_LIB=True LOCAL_BACKEND=False
+    - <<: *osx
+      env: SHARED_LIB=False LOCAL_BACKEND=False
+
     - <<: *windows
-      env: SHARED_LIB=True
+      env: SHARED_LIB=True LOCAL_BACKEND=False
     - <<: *windows
-      env: SHARED_LIB=False
+      env: SHARED_LIB=False LOCAL_BACKEND=False
 
 install:
   - pip3 install conan
 
 script:
-  - conan create . tanshihaj/stable -o *:shared=$SHARED_LIB --build missing
+  - conan create . tanshihaj/stable -o *:shared=$SHARED_LIB  -o *:local_backend=$LOCAL_BACKEND -o *:xml_backend=True -o *:network_backend=True --build missing
 
 deploy:
   provider: script
